@@ -1,0 +1,20 @@
+.topbar {
+    background-color: #fff;
+    
+    .header__display {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+    
+        .header__img  img{
+            height: 2rem;
+        };
+        .header__icons {
+            > svg {
+                margin-right: 5px;
+            }
+        }
+    
+    }
+
+}
