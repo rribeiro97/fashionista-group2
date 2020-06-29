@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import './HomeRoute.scss';
-
+import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
+import Filter from '../../components/Filter/Filter';
 
 const HomeRoute = () => {
 
     const [products,setProducts] = useState([]);
-
+    let numberResults = products.length;
 
     useEffect(() => {
         fetch('https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog')
@@ -17,19 +18,17 @@ const HomeRoute = () => {
       });
     },[]);
 
-    
     console.log(products)
 
   return (
     <div className="home">
        <div className="container"> 
             <div className="home__filter__bar">
-                <button> Filtre por cor </button>
-                <span>{`${products.length} itens encontrados`}</span>
+                <Filter numberResults={numberResults} />
             </div>
 
             <div className="home__product__area">
-                
+                <ProductCardDisplay products={products}/>
             </div>
 
        </div>
