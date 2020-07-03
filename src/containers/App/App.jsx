@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
+import AppProvider from '../../hooks';
 import Topbar from '../../components/TopBar/TopBar';
 
 import Routes from '../../routes';
@@ -10,11 +11,13 @@ import HomeRoute from '../../routes/HomeRoute/HomeRoute';
 
 const App = () => (
   // <BrowserRouter>
-    <React.Fragment>
+  <React.Fragment>
+    <AppProvider>
       <Topbar />
       <HomeRoute />
-    </React.Fragment>
-    // <Routes />
+    </AppProvider>
+  </React.Fragment>
+  // <Routes />
   // </BrowserRouter>
 );
 

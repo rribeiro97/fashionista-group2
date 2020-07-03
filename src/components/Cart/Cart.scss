@@ -1,0 +1,49 @@
+.cart__drawer {
+  height: 100%;
+  background: #f9f9f9;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  // overflow: scroll;
+  top: 0;
+  right: 0;
+  width: 70%;
+  max-width: 400px;
+  z-index: 200;
+}
+
+.cart__header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+}
+
+.cart__header span {
+  margin-left: 10px;
+}
+
+.cart__header svg {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.cart__content {
+  width: 100%;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+}
+
+.cart__vazio {
+  margin-left: 20px;
+  color: #ccc;
+}
+
+.cart__footer {
+  color: #fff;
+  background-color: #212529;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
