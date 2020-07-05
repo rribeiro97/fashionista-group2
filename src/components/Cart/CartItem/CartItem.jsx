@@ -2,26 +2,27 @@ import React from 'react';
 
 import './CartItem.scss';
 
-const CartItem = () => {
+const CartItem = ({ data, increment, decrement, remove }) => {
+  const product = data;
+
   return (
     <div className="cart__content">
       <div className="img">
-        <img
-          src="https://viniciusvinna.netlify.app/assets/api-fashionista/20002575_027_catalog_1.jpg"
-          alt=""
-        />
+        <img src={product.image} alt={product.name} />
+        <span onClick={() => remove(product.id)} className="cart__remove">
+          Remover
+        </span>
       </div>
       <div className="cart__detail">
-        <h4>Name</h4>
-        <p>Tam.: </p>
-        <button>-</button>
-        <span>Qtd</span>
-        <button>+</button>
-        <span className="cart__remove">Remover</span>
+        <h4>{product.name}</h4>
+        <p>Tam.: G</p>
+        <button onClick={() => decrement(product.id)}>-</button>
+        <span>{product.quantity}</span>
+        <button onClick={() => increment(product.id)}>+</button>
       </div>
       <div className="cart__price">
-        <h4>Preco</h4>
-        <p>Instal</p>
+        <h4>{product.actual_price}</h4>
+        <p>{product.installments}</p>
       </div>
     </div>
   );

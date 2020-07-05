@@ -3,12 +3,23 @@
   background: #f9f9f9;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
   position: fixed;
-  // overflow: scroll;
+
   top: 0;
   right: 0;
-  width: 70%;
-  max-width: 400px;
-  z-index: 200;
+  min-width: 400px;
+  width: 100%;
+  min-height: 100vh;
+  //transform: translate3d(100%, 0, 0);
+  //transition: transform 0.3s ease-out;
+  // overflow: scroll;
+  z-index: 20;
+}
+
+@media screen and (min-width: 1279px) {
+  .cart__drawer {
+    right: 0;
+    width: 375px;
+  }
 }
 
 .cart__header {
@@ -28,12 +39,6 @@
   cursor: pointer;
 }
 
-.cart__content {
-  width: 100%;
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
-}
-
 .cart__vazio {
   margin-left: 20px;
   color: #ccc;
@@ -46,4 +51,6 @@
   bottom: 0;
   width: 100%;
   overflow: hidden;
+  padding: 0.5rem 0.5rem;
+  font-size: 1.2rem;
 }

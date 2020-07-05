@@ -14,6 +14,34 @@
         margin-right: 5px;
         cursor: pointer;
       }
+
+      .header__count {
+        position: absolute;
+        background: rgb(207, 56, 56);
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        font-size: 15px;
+        border-radius: 50px;
+        right: -3px;
+        top: 5px;
+      }
+
+      @media (min-width: 450px) {
+        .header__count {
+          position: absolute;
+          background: rgb(207, 56, 56);
+          color: #fff;
+          width: 15px;
+          height: 15px;
+          text-align: center;
+          font-size: 12px;
+          border-radius: 50px;
+          right: -3px;
+          top: 5px;
+        }
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import { FiShoppingBag } from 'react-icons/fi';
 import './TopBar.scss';
 
 const Topbar = () => {
-  const { openCart } = useCart();
+  const { openCart, totalItensInCart } = useCart();
 
   return (
     <header className="topbar">
@@ -22,6 +22,10 @@ const Topbar = () => {
 
           <div className="header__icons">
             <RiSearchLine />
+            {totalItensInCart > 0 && (
+              <span className="header__count">{totalItensInCart}</span>
+            )}
+
             <FiShoppingBag onClick={() => openCart()} />
           </div>
         </div>
