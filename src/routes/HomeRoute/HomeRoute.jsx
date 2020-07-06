@@ -20,6 +20,7 @@ const HomeRoute = () => {
   }, []);
 
   useEffect(() => {
+    
     let selectedData =
       state.filteredProducts.length !== 0
         ? state.filteredProducts
