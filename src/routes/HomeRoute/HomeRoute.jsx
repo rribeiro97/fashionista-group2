@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './HomeRoute.scss';
 import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
 import Filter from '../../components/Filter/Filter';
+import Search from '../../components/Search/Search';
 
 const HomeRoute = () => {
 
@@ -10,7 +11,8 @@ const HomeRoute = () => {
     let numberResults = products.length;
 
     useEffect(() => {
-        fetch('https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog')
+        // fetch('https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog') old api link
+        fetch('https://undefined.netlify.app/api/catalog')
       .then( (response) => {
         return response.json();
       }).then( (data) => {
@@ -30,7 +32,6 @@ const HomeRoute = () => {
             <div className="home__product__area">
                 <ProductCardDisplay products={products}/>
             </div>
-
        </div>
     </div>
   );
