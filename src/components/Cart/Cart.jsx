@@ -48,7 +48,7 @@ const Cart = ({ show }) => {
             <span>Meu carrinho ({totalItensInCart})</span>
           </div>
 
-          {products.length > 0 &&
+          {products.length > 0 ? (
             products.map((product) => (
               <CartItem
                 key={product.id}
@@ -57,7 +57,10 @@ const Cart = ({ show }) => {
                 decrement={decrement}
                 remove={removeFromCart}
               />
-            ))}
+            ))
+          ) : (
+            <p className="cart__vazio">Seu carrinho esta vazio!</p>
+          )}
 
           <div className="cart__footer">
             <p>
