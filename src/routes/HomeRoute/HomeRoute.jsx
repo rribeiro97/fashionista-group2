@@ -14,7 +14,7 @@ const HomeRoute = () => {
     var productResults;
 
     useEffect(() => {
-        fetch('https:undefined.netlify.app/api/catalog')
+        fetch('https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog')
       .then( (response) => {
         return response.json();
       }).then( (data) => {
