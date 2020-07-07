@@ -1,5 +1,7 @@
 import React, { useEffect, useState, createContext, useReducer } from 'react';
 
+import api from '../../services/api';
+
 import './HomeRoute.scss';
 import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
 import FilterCardsComponent from '../../components/FilterCardsComponent/FilterCardsComponent';
@@ -12,31 +14,23 @@ const HomeRoute = () => {
   var productResults;
 
   useEffect(() => {
-    fetch('https://undefined.netlify.app/api/catalog')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(updateValue({ key: KEYS.fetchedProducts, value: data }));
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    api.get('/catalog').then((response) => {
+      dispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data }));
+    });
   }, []);
+  //  Vamos ter que gerar um uuid... 
+  const getProductByName = (name) => state.products.find(product => name === product.className);
 
   useEffect(() => {
-    const getProducts = () => {
-      let selectedData =
-        state.filteredProducts.length !== 0
-          ? state.filteredProducts
-          : state.fetchedProducts;
-      console.log('selected', selectedData);
-      dispatch(updateValue({ key: KEYS.products, value: selectedData }));
-    };
-
-    getProducts();
+    
+    let selectedData =
+      state.filteredProducts.length !== 0
+        ? state.filteredProducts
+        : state.fetchedProducts;
+    console.log('selected', selectedData);
+    dispatch(updateValue({ key: KEYS.products, value: selectedData }));
   }, [state.fetchedProducts, state.filteredProducts]);
+
 
   const onClickFilterCategory = (selectedCategory) => {
     let alreadySelected = state.selectedCategories.find(

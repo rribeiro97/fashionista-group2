@@ -7,18 +7,16 @@ import Topbar from '../../components/TopBar/TopBar';
 import Routes from '../../routes';
 
 import './App.scss';
-import HomeRoute from '../../routes/HomeRoute/HomeRoute';
 
 const App = () => (
-  // <BrowserRouter>
-  <React.Fragment>
+   <BrowserRouter>
+
     <AppProvider>
       <Topbar />
-      <HomeRoute />
+      <Routes />
     </AppProvider>
-  </React.Fragment>
-  // <Routes />
-  // </BrowserRouter>
+  
+   </BrowserRouter>
 );
 
 export default App;
