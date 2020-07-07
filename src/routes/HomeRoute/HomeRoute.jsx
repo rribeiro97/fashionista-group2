@@ -18,6 +18,8 @@ const HomeRoute = () => {
       dispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data }));
     });
   }, []);
+  //  Vamos ter que gerar um uuid... 
+  const getProductByName = (name) => state.products.find(product => name === product.className);
 
   useEffect(() => {
     
