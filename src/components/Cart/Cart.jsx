@@ -20,7 +20,6 @@ const Cart = ({ show }) => {
   const cartTotal = useMemo(() => {
     if (products.length > 0) {
       const total = products.reduce((acc, product) => {
-        // Needs improvement
         const price = parseFloat(
           product.actual_price
             .split(' ')[1]
@@ -59,7 +58,9 @@ const Cart = ({ show }) => {
               />
             ))
           ) : (
-            <p className="cart__vazio">Seu carrinho esta vazio!</p>
+            <div className="product__notFound">
+              <span className="default-msg">Nenhum item encontrado :\</span>
+            </div>
           )}
 
           <div className="cart__footer">

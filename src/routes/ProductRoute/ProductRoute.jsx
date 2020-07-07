@@ -1,54 +1,60 @@
-import React, { useState } from "react";
-import "./SingleProduct.scss";
-import "./ProductRoute.scss";
+import React, { useState } from 'react';
+
+import { useCart } from '../../hooks/cart';
+
+import './SingleProduct.scss';
+import './ProductRoute.scss';
 
 const ProductRoute = (props) => {
-  const [selectedSize, setSelectedSize] = useState("");
+  const { addToCart } = useCart();
+
+  const [selectedSize, setSelectedSize] = useState('');
 
   props = {
-    name: "REGATA ALCINHA FOLK",
-    style: "20002570",
-    code_color: "20002570_614",
-    color_slug: "preto",
-    color: "PRETO",
+    name: 'REGATA ALCINHA FOLK',
+    style: '20002570',
+    code_color: '20002570_614',
+    color_slug: 'preto',
+    color: 'PRETO',
     on_sale: false,
-    regular_price: "R$ 99,90",
-    actual_price: "R$ 99,90",
-    discount_percentage: "",
-    installments: "3x R$ 33,30",
+    regular_price: 'R$ 99,90',
+    actual_price: 'R$ 99,90',
+    discount_percentage: '',
+    installments: '3x R$ 33,30',
     image:
-      "https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_002_catalog_1.jpg?1459948578",
+      'https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_002_catalog_1.jpg?1459948578',
     sizes: [
       {
         available: true,
-        size: "PP",
-        sku: "5723_40130843_0_PP",
+        size: 'PP',
+        sku: '5723_40130843_0_PP',
       },
       {
         available: true,
-        size: "P",
-        sku: "5723_40130843_0_P",
+        size: 'P',
+        sku: '5723_40130843_0_P',
       },
       {
         available: true,
-        size: "M",
-        sku: "5723_40130843_0_M",
+        size: 'M',
+        sku: '5723_40130843_0_M',
       },
       {
         available: true,
-        size: "G",
-        sku: "5723_40130843_0_G",
+        size: 'G',
+        sku: '5723_40130843_0_G',
       },
       {
         available: true,
-        size: "GG",
-        sku: "5723_40130843_0_GG",
+        size: 'GG',
+        sku: '5723_40130843_0_GG',
       },
     ],
+    id: 'regata-alcinha-folk-20002570_614',
   };
 
   function handleClick(e, sku) {
-    console.log("chico clicou");
+    console.log('chico clicou');
     setSelectedSize(sku);
   }
 
@@ -79,8 +85,8 @@ const ProductRoute = (props) => {
                       type="button"
                       className={`product__filter ${
                         selectedSize === size.sku
-                          ? "product__filter--selected"
-                          : ""
+                          ? 'product__filter--selected'
+                          : ''
                       }`}
                       onClick={(event) => {
                         handleClick(event, size.sku);
@@ -92,7 +98,11 @@ const ProductRoute = (props) => {
             </div>
           </div>
           <div className="product__actions">
-            <button type="button" className="product__add-to-cart">
+            <button
+              type="button"
+              className="product__add-to-cart"
+              onClick={() => addToCart(props)}
+            >
               Adicionar à Sacola
             </button>
           </div>

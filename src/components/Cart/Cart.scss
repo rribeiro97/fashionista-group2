@@ -55,3 +55,15 @@
   padding: 0.5rem 0.5rem;
   font-size: 1.2rem;
 }
+
+.product__notFound {
+  height: 90vh;
+  overflow-y: auto;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  padding: 16px;
+}
