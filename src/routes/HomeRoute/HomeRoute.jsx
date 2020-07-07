@@ -85,7 +85,6 @@ const HomeRoute = () => {
                <ProductCardDisplay products={state.products}/>
 
             </div>
-
        </div>
     </div>
   );
