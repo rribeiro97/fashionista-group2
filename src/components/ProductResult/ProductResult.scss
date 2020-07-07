@@ -1,0 +1,67 @@
+.product__list__item {
+    font-family: Noto Sans SC,sans-serif;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.08);
+    color: #212529;
+}
+
+.product__list__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.product__image {
+    width: 25%;
+}
+
+.product__list__info {
+    width: 50%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: left;
+}
+
+.product__list__name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: .5rem
+}
+
+.product__list__size {
+    font-size: 1rem;
+    color: #a7a7a7;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.size_item {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.product__list__price {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.product__list__current {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.product__list__installments {
+    font-size: 1.2rem;
+    color: #a7a7a7;
+}

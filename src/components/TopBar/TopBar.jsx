@@ -5,6 +5,11 @@ import { useCart } from '../../hooks/cart';
 import { RiSearchLine } from 'react-icons/ri';
 import { FiShoppingBag } from 'react-icons/fi';
 import './TopBar.scss';
+import Search from "../Search";
+import { useState } from "react";
+
+// const Topbar = () => {
+//   const [showSearch, setShowSearch] = useState(false);
 
 const Topbar = () => {
   const { openCart, totalItensInCart } = useCart();
