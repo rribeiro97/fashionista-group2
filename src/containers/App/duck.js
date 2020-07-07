@@ -1,6 +1,7 @@
 const CLEAR = "SIGNUP/CLEAR";
 const UPDATE_VALUE = "SIGNUP/UPDATE_VALUE";
 const UPDATE_CART = "CART/UPDATE";
+const SET_PRODUCT = "PRODUCT/SELECT";
 
 export const KEYS = {
   products: "products",
@@ -9,7 +10,8 @@ export const KEYS = {
   showCategoryFilter: "showCategoryFilter",
   categories: "categories",
   selectedCategories: "selectedCategories",
-  cartItems: "cartItems"
+  cartItems: "cartItems",
+  selectedProduct: "selectedProduct"
 };
 
 export const INITIAL_STATE = {
@@ -19,7 +21,8 @@ export const INITIAL_STATE = {
   [KEYS.showCategoryFilter]: false,
   [KEYS.categories]: [],
   [KEYS.selectedCategories]: [],
-  [KEYS.cartItems]: []
+  [KEYS.cartItems]: [],
+  [KEYS.selectedProduct]: {}
 };
 
 export default function reducer(state, action) {
@@ -29,6 +32,8 @@ export default function reducer(state, action) {
         ...state,
         [action.payload.key]: action.payload.value,
       };
+    case SET_PRODUCT:
+      return action.payload.value ;
     case UPDATE_CART:
       return {
         ...state,
@@ -61,6 +66,16 @@ export function updateValue({ key, value }) {
 export function updateCart({ key, value }){
   return {
     type: UPDATE_CART,
+    payload: {
+      key,
+      value,
+    },
+  }
+}
+
+export function selectProduct({ key, value }){
+  return {
+    type: SET_PRODUCT,
     payload: {
       key,
       value,

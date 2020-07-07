@@ -1,62 +1,64 @@
-import React, { useEffect, useState, createContext, useReducer } from 'react';
+import React, { useEffect, useContext, createContext, useReducer } from 'react';
 
 import api from '../../services/api';
 
 import './HomeRoute.scss';
 import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
 import FilterCardsComponent from '../../components/FilterCardsComponent/FilterCardsComponent';
-import reducer, { KEYS, INITIAL_STATE, clear, updateValue } from './duck';
+import reducer, { KEYS, INITIAL_STATE, clear, updateValue } from '../../containers/App/duck';
 
-export const ProductsContext = createContext();
+import { ProductContext } from '../../containers/App/App';
 
 const HomeRoute = () => {
-  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  
+  const productContext = useContext(ProductContext);
+  
   var productResults;
 
   useEffect(() => {
     api.get('/catalog').then((response) => {
-      dispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data }));
+      productContext.productDispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data }));
     });
-  }, []);
+  }, [productContext]);
   //  Vamos ter que gerar um uuid... 
-  const getProductByName = (name) => state.products.find(product => name === product.className);
+  const getProductByName = (name) => productContext.productState.products.find(product => name === product.className);
 
   useEffect(() => {
     
     let selectedData =
-      state.filteredProducts.length !== 0
-        ? state.filteredProducts
-        : state.fetchedProducts;
+      productContext.productState.filteredProducts.length !== 0
+        ? productContext.productState.filteredProducts
+        : productContext.productState.fetchedProducts;
     console.log('selected', selectedData);
-    dispatch(updateValue({ key: KEYS.products, value: selectedData }));
-  }, [state.fetchedProducts, state.filteredProducts]);
+    productContext.productDispatch(updateValue({ key: KEYS.products, value: selectedData }));
+  }, [productContext]);
 
 
   const onClickFilterCategory = (selectedCategory) => {
-    let alreadySelected = state.selectedCategories.find(
+    let alreadySelected = productContext.productState.selectedCategories.find(
       (item) => item === selectedCategory
     );
     if (alreadySelected) {
-      let removeItem = state.selectedCategories.filter(
+      let removeItem = productContext.productState.selectedCategories.filter(
         (category) => category !== selectedCategory
       );
-      dispatch(
+      productContext.productDispatch(
         updateValue({ key: KEYS.selectedCategories, value: removeItem })
       );
     } else {
-      dispatch(
+      productContext.productDispatch(
         updateValue({
           key: KEYS.selectedCategories,
-          value: [...state.selectedCategories, selectedCategory],
+          value: [...productContext.productState.selectedCategories, selectedCategory],
         })
       );
     }
-    console.log('selectedCat', state.selectedCategories);
+    console.log('selectedCat', productContext.productState.selectedCategories);
   };
 
   const getCategories = () => {
     let availableCategories = [];
-    state.fetchedProducts.map((category) => {
+    productContext.productState.fetchedProducts.map((category) => {
       let already = availableCategories.find(
         (cat) => cat === category.color_slug
       );
@@ -64,35 +66,35 @@ const HomeRoute = () => {
         availableCategories.push(category.color_slug);
       }
     });
-    dispatch(updateValue({ key: KEYS.categories, value: availableCategories }));
+    productContext.productDispatch(updateValue({ key: KEYS.categories, value: availableCategories }));
   };
 
   const filterProduct = () => {
-    let filtered = state.fetchedProducts.filter((product) =>
-      state.selectedCategories.includes(product.color_slug)
+    let filtered = productContext.productState.fetchedProducts.filter((product) =>
+      productContext.productState.selectedCategories.includes(product.color_slug)
     );
-    dispatch(updateValue({ key: KEYS.filteredProducts, value: filtered }));
+    productContext.productDispatch(updateValue({ key: KEYS.filteredProducts, value: filtered }));
   };
 
   const getNumberResults = () => {
     var results =
-      state.filteredProducts.length !== 0
-        ? state.filteredProducts.length
-        : state.fetchedProducts.length;
+      productContext.productState.filteredProducts.length !== 0
+        ? productContext.productState.filteredProducts.length
+        : productContext.productState.fetchedProducts.length;
     productResults = results;
   };
 
   const filterHandler = () => {
     getCategories();
-    dispatch(
+    productContext.productDispatch(
       updateValue({
         key: KEYS.showCategoryFilter,
-        value: !state.showCategoryFilter,
+        value: !productContext.productState.showCategoryFilter,
       })
     );
   };
 
-  console.log('state', state);
+  console.log('productContext.productState', productContext.productState);
   return (
     <div className="home">
       <div className="container">
@@ -102,23 +104,23 @@ const HomeRoute = () => {
           </button>
           <div
             className={
-              state.showCategoryFilter ? 'filter__enabled' : 'filter__disabled'
+              productContext.productState.showCategoryFilter ? 'filter__enabled' : 'filter__disabled'
             }
           >
-            <ProductsContext.Provider value={state.categories}>
+           
               <FilterCardsComponent
-                selecteds={state.selectedCategories}
+                selecteds={productContext.productState.selectedCategories}
                 categoryHandler={onClickFilterCategory}
                 searchHandler={filterProduct}
               />
-            </ProductsContext.Provider>
+            
           </div>
         </div>
 
         <div className="home__product__area">
-          <span> Foram encontrados {state.products.length} produtos.</span>
-          {/* <ProductCardDisplay fetchedProducts={filteredProduct.length !== 0 ? filteredProduct : state.fetchedProducts}/> */}
-          <ProductCardDisplay products={state.products} />
+          <span> Foram encontrados {productContext.productState.products.length} produtos.</span>
+          {/* <ProductCardDisplay fetchedProducts={filteredProduct.length !== 0 ? filteredProduct : productContext.productState.fetchedProducts}/> */}
+          <ProductCardDisplay products={productContext.productState.products} />
         </div>
       </div>
     </div>
