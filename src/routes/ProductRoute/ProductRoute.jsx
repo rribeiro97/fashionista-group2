@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import ReactImageZoom from 'react-image-zoom';
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
+import Magnifier from "react-magnifier";
 
 const ProductRoute = (props) => {
   const [selectedSize, setSelectedSize] = useState("");
@@ -56,7 +58,8 @@ const ProductRoute = (props) => {
     <div>
       <div className="single-product">
         <figure className="product__image">
-          <img src={props.image} alt="Product" />
+          {/* <img src={props.image} alt="Product" /> */}
+          <Magnifier zoomFactor={1.3} mgWidth={180} mgHeight={180} mgShape="square" src={props.image} alt={`Produto ${props.image.name}`}/>
         </figure>
         <div className="product__content">
           <h3 className="product__name">{props.name}</h3>
