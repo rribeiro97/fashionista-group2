@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './ProductCard.scss';
+import { Link } from 'react-router-dom';
 
 
 const ProductCard = (props) => {
@@ -9,10 +10,12 @@ const { cardItem } = props;
   return (
   <div className="productCard">
     <div className="card__box">
+    <Link to={`/produto/${cardItem.name}`}>
       <figure className="productCard__image">
         { cardItem.discount_percentage ? <span className="productCard__discount">{`${cardItem.discount_percentage}OFF`}</span> : ""}
         <img src={cardItem.image} alt={cardItem.name}/>
       </figure>
+      </Link>
       <div className="productCard__details">
         <span className="productCard__title">{cardItem.name}</span>
         <div className="productCard__price">
