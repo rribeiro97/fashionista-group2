@@ -8,11 +8,10 @@ import './TopBar.scss';
 import Search from "../Search";
 import { useState } from "react";
 
-// const Topbar = () => {
-//   const [showSearch, setShowSearch] = useState(false);
 
 const Topbar = () => {
   const { openCart, totalItensInCart } = useCart();
+  const [showSearch, setShowSearch] = useState(false);
 
   return (
     <header className="topbar">
@@ -26,7 +25,9 @@ const Topbar = () => {
           </div>
 
           <div className="header__icons">
-            <RiSearchLine />
+            <RiSearchLine onClick={() => setShowSearch(!showSearch)} />
+            { showSearch ? <Search /> : null }
+
             {totalItensInCart > 0 && (
               <span className="header__count">{totalItensInCart}</span>
             )}
