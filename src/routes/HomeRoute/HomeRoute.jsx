@@ -1,35 +1,31 @@
 import React, { useEffect, useState, createContext, useReducer } from 'react';
 
+import api from '../../services/api';
+
 import './HomeRoute.scss';
 import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
 import FilterCardsComponent from '../../components/FilterCardsComponent/FilterCardsComponent';
 import reducer, { KEYS, INITIAL_STATE, clear, updateValue } from "./duck";
 
 export const ProductsContext = createContext();
->>>>>>> 74f39013fc187efb43f33569c78b5ac94f42d721
 
 const HomeRoute = () => {
-
-
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
     var productResults;
 
     useEffect(() => {
-        // fetch('https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog') old api link
-        fetch('https://undefined.netlify.app/api/catalog')
-      .then( (response) => {
-        return response.json();
-      }).then( (data) => {
-        dispatch(updateValue({ key: KEYS.fetchedProducts, value: data}));
-        console.log(data)
-      }).catch(error => {
-        console.log(error);
+      api.get('/catalog').then((response) => {
+        dispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data}));
       });
-    },[]);
+    }, []);
 
     useEffect( ( ) => {
-       getProducts();
-    },[state.fetchedProducts,state.filteredProducts]);
+
+      let selectedData = state.filteredProducts.length !== 0 ? state.filteredProducts : state.fetchedProducts;
+      console.log('selected',selectedData)
+      dispatch(updateValue({key: KEYS.products, value: selectedData}));
+
+    },[state.fetchedProducts, state.filteredProducts]);
 
     const onClickFilterCategory = (selectedCategory) => {
       let alreadySelected = state.selectedCategories.find((item) => item === selectedCategory);
@@ -42,11 +38,7 @@ const HomeRoute = () => {
        }
       console.log('selectedCat',state.selectedCategories);
     }
-    const getProducts = () => {
-      let selectedData = state.filteredProducts.length !== 0 ? state.filteredProducts : state.fetchedProducts;
-      console.log('selected',selectedData)
-      dispatch(updateValue({key: KEYS.products, value: selectedData}));
-    }
+    
     const getCategories = () => {
       let availableCategories = [];
       state.fetchedProducts.map( (category) => {
