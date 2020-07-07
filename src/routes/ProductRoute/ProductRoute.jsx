@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./SingleProduct.scss";
-import "./Product.scss";
+import "./ProductRoute.scss";
 
-const Product = (props) => {
+const ProductRoute = (props) => {
   const [selectedSize, setSelectedSize] = useState("");
 
   props = {
@@ -105,4 +105,4 @@ const Product = (props) => {
   );
 };
 
-export default Product;
+export default ProductRoute;
