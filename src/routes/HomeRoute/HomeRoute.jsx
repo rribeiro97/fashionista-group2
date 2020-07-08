@@ -5,13 +5,12 @@ import api from '../../services/api';
 import './HomeRoute.scss';
 import ProductCardDisplay from '../../containers/ProductCardDisplay/ProductCardDisplay';
 import FilterCardsComponent from '../../components/FilterCardsComponent/FilterCardsComponent';
-import reducer, { KEYS, INITIAL_STATE, clear, updateValue } from './duck';
+import reducer, { KEYS, INITIAL_STATE, updateValue } from './duck';
 
 export const ProductsContext = createContext();
 
 const HomeRoute = () => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  var productResults;
 
   useEffect(() => {
     api.get('/catalog').then((response) => {
@@ -32,12 +31,7 @@ const HomeRoute = () => {
     idGenerator();
   },[state.fetchedProducts]);
 
-    //  Vamos ter que gerar um uuid... 
-    const getProductByName = (name) => state.products.find(product => name === product.className);
-
-
     const idGenerator = () => {
-      // debugger;
       const withIdProducts = [];
       const initial = state.fetchedProducts.map( (product) => {
         const normalizeName = product.name.toLowerCase().replace(/\s/g, "-")
@@ -95,14 +89,6 @@ const HomeRoute = () => {
     dispatch(updateValue({key: KEYS.selectedCategories, value : []}));
   }
 
-  const getNumberResults = () => {
-    var results =
-      state.filteredProducts.length !== 0
-        ? state.filteredProducts.length
-        : state.fetchedProductsID.length;
-    productResults = results;
-  };
-
   const filterHandler = () => {
     getCategories();
     dispatch(
@@ -139,7 +125,6 @@ const HomeRoute = () => {
 
         <div className="home__product__area">
           <span> Foram encontrados {state.products.length} produtos.</span>
-          {/* <ProductCardDisplay fetchedProducts={filteredProduct.length !== 0 ? filteredProduct : state.fetchedProducts}/> */}
           <ProductCardDisplay products={state.products} />
         </div>
       </div>
