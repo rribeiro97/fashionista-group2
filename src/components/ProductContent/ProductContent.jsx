@@ -4,7 +4,6 @@ import "./ProductContent.scss";
 const ProductContent = (props) => {
   const { product, selectedSize, handleClick } = props;
   return (
-    <>
       <div className="product__content">
         <h3 className="product__name">{product.name}</h3>
         <div className="product__pricing">
@@ -15,6 +14,7 @@ const ProductContent = (props) => {
             {product.installments}
           </span>
         </div>
+        
         <div className="product__sizes">
           <p className="product__sizes__title">Escolha o tamanho</p>
           <div className="product__btn-group">
@@ -38,13 +38,14 @@ const ProductContent = (props) => {
                 ))}
           </div>
         </div>
+
         <div className="product__actions">
           <button type="button" className="product__add-to-cart">
             Adicionar à Sacola
           </button>
         </div>
+        
       </div>
-    </>
   );
 };
 
