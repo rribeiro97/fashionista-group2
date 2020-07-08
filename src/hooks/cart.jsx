@@ -61,8 +61,15 @@ const CartProvider = ({ children }) => {
     async (id) => {
       const productExists = products.find((p) => p.id === id);
 
-      if (productExists)
-        setProducts({ products: products.filter((p) => p.id !== id) });
+      if (productExists) {
+        const newProducts = products.filter((p) => p.id !== id);
+        setProducts(newProducts);
+
+        await localStorage.setItem(
+          '@Codenation:products',
+          JSON.stringify(newProducts)
+        );
+      }
     },
     [products]
   );
