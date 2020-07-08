@@ -20,7 +20,6 @@ const Cart = ({ show }) => {
   const cartTotal = useMemo(() => {
     if (products.length > 0) {
       const total = products.reduce((acc, product) => {
-        // Needs improvement
         const price = parseFloat(
           product.actual_price
             .split(' ')[1]
@@ -48,7 +47,7 @@ const Cart = ({ show }) => {
             <span>Meu carrinho ({totalItensInCart})</span>
           </div>
 
-          {products.length > 0 &&
+          {products.length > 0 ? (
             products.map((product) => (
               <CartItem
                 key={product.id}
@@ -57,7 +56,12 @@ const Cart = ({ show }) => {
                 decrement={decrement}
                 remove={removeFromCart}
               />
-            ))}
+            ))
+          ) : (
+            <div className="product__notFound">
+              <span className="default-msg">Nenhum item encontrado :\</span>
+            </div>
+          )}
 
           <div className="cart__footer">
             <p>

@@ -1,49 +1,95 @@
 .drawer {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background: #fff;
+    display: flex;
     flex-direction: row;
     min-height: 100vh;
-    width: 55vh;
-    flex: 1;
+    position: fixed;
     top: 0;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    transition-duration: 300;
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    width: 100%;
     z-index: 20;
-    position:fixed;
-    transform: translate(-300px, 0px);
-    backface-visibility: hidden;
-    right: -300px;
-    overflow: auto;
+    transform: translateZ(0);
+    box-shadow: 0 19px 38px rgba(0,0,0,.3), 0 15px 12px rgba(0,0,0,.22);
 }
 
 .drawer__header {
-    width: 100vh;
+    backface-visibility: hidden;
+    background-color: #fff;
+    height: 5.5rem;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transform: translateZ(0);
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 0 1rem 0 rgba(0,0,0,.02);
 }
+@media screen and (min-width: 1279px) {
+    .drawer {
+      right: 0;
+      width: 375px;
+    }
+  }
 
 .app__container {
-    padding: 5px 5px 5px 5px;
+    display: block;
+    margin: 0 auto;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    position: relative;
+    width: 100%;
+}
+
+.header__context {
     align-items: center;
     display: flex;
-    list-style: none;
+    padding-bottom: 1.25rem;
+    padding-top: 1.25rem;
+}
+
+.header__icons {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
 }
 
 .header__title {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #212529;
-    font-family: Noto Sans SC,sans-serif;
     display: inline-block;
     padding-top: .7rem;
     padding-bottom: .7rem;
     margin: 0 auto;
+    transform: translate3d(calc(-50% - 30px),0,0);
+    color: #212529;
+    font-family: Noto Sans SC,sans-serif;
+    text-rendering: optimizeLegibility;
+    line-height: 1.15;
 }
 
-.header__icons {
+.button__icons {
+    margin-right: 5px;
+    cursor: pointer;
 }
 
 .drawer__content {
     background: #f9f9f9;
     height: 100vh;
+    padding-top: 5.5rem;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.search {
+    padding-bottom: 5rem;
+    width: 100%;
+    display: block;
 }
 
 .search__form {

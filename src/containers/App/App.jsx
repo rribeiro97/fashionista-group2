@@ -9,14 +9,14 @@ import Routes from '../../routes';
 import './App.scss';
 
 const App = () => (
-   <BrowserRouter>
-
-    <AppProvider>
-      <Topbar />
-      <Routes />
-    </AppProvider>
-  
-   </BrowserRouter>
+  <BrowserRouter>
+      <AppProvider>
+    <div className="app_test">
+          <Topbar />
+          <Routes />
+    </div>
+      </AppProvider>
+    </BrowserRouter>
 );
 
 export default App;
