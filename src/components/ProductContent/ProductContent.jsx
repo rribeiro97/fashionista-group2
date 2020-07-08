@@ -3,6 +3,7 @@ import "./ProductContent.scss";
 
 const ProductContent = (props) => {
   const { product, selectedSize, handleClick } = props;
+
   return (
       <div className="product__content">
         <h3 className="product__name">{product.name}</h3>

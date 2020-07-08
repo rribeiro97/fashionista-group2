@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
 import Magnifier from "react-magnifier";
 import ProductContent from "../../components/ProductContent";
 
 import { useCart } from '../../hooks/cart';
+import reducer, { KEYS, INITIAL_STATE, clear, updateValue } from '../HomeRoute/duck';
+
 
 const ProductRoute = (props) => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const { addToCart } = useCart();
+  const { match } = props;
+  const { id } = match.params;
+  console.log('===teste===');
+  console.log(state.products);
 
   const [selectedSize, setSelectedSize] = useState('');
 
@@ -78,9 +85,6 @@ const ProductRoute = (props) => {
           selectedSize={selectedSize}
           handleClick={handleClick}
         />
-      </div>
-      <div className="drawer">
-        <div className="drawer__content"></div>
       </div>
     </div>
   );

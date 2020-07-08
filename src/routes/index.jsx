@@ -12,8 +12,7 @@ const Routes = () => (
     <Route exact path="/product">
       <ProductRoute />
     </Route>
-    <Route path="/produto/:id">
-      <ProductRoute />
+    <Route path="/produto/:id" component={ProductRoute}>
     </Route>
   </Switch>
 );
