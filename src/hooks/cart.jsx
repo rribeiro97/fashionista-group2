@@ -25,11 +25,6 @@ const CartProvider = ({ children }) => {
       );
 
       if (storagedProducts) setProducts([...JSON.parse(storagedProducts)]);
-      else {
-        const newProduct = [fakeApi[0]];
-
-        setProducts(newProduct);
-      }
     }
 
     loadProducts();
