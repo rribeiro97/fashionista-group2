@@ -17,6 +17,7 @@ const ProductCard = (props) => {
           <img src={cardItem.image ? cardItem.image : "/assets/img/404.png"} alt={cardItem.name}/>
         </picture>
         <div className="productCard__about"> 
+            <span className="productCard__about_itemName">{cardItem.name}</span>
             <div className="productCard__about__text">
             <FaTshirt/>
               <h3> SAIBA MAIS </h3>
