@@ -16,13 +16,14 @@ const Topbar = () => {
     <header className="topbar">
       <nav className="header">
         <div className="container header__display">
+        <Link to={'/'} >
           <div className="header__img">
             <img
-              src="https://static.dafiti.com.br/images/kanui/logo-kanui.png"
+              src="/assets/img/amarologo.png"
               alt="logo"
             />
           </div>
-
+        </Link>
           <div className="header__icons">
             <RiSearchLine onClick={() => openSearch()} />
             {totalItensInCart > 0 && (
