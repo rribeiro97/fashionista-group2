@@ -92,6 +92,11 @@ const HomeRoute = () => {
     dispatch(updateValue({ key: KEYS.filteredProducts, value: filtered }));
   };
 
+  const clearFilter = () => {
+    dispatch(updateValue({key: KEYS.filteredProducts, value :[] }));
+    dispatch(updateValue({key: KEYS.selectedCategories, value : []}));
+  }
+
   const getNumberResults = () => {
     var results =
       state.filteredProducts.length !== 0
@@ -115,8 +120,9 @@ const HomeRoute = () => {
     <div className="home">
       <div className="container">
         <div className="filter">
+          Filtre por:
           <button className="btn-filter" onClick={filterHandler}>
-            Categoria
+            Cor
           </button>
           <div
             className={
@@ -128,6 +134,7 @@ const HomeRoute = () => {
                 selecteds={state.selectedCategories}
                 categoryHandler={onClickFilterCategory}
                 searchHandler={filterProduct}
+                clearHandler={clearFilter}
               />
             </ProductsContext.Provider>
           </div>

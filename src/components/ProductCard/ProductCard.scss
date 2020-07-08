@@ -8,6 +8,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         
         .productCard__discount {
             position: absolute;
@@ -46,6 +47,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+            padding: 5px 0 12px;
         }
         .productCard__regularPrice {
             margin-right: 1rem;
@@ -63,5 +65,83 @@
 @media screen and (min-width: 992px) {
     .productCard {
         width: 25%;
+    }
+
+    .productCard__image {
+        margin: 0;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        .productCard__about {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            .productCard__about__text,.productCard__about_itemName {
+                width: 100%;
+                text-align: center;
+                opacity: 0;
+                transform: translateY(-130%);
+                transition-timing-function: ease-in;
+                transition: 0s;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        &:hover {
+            .productCard__about {
+                transition: 0.5s all linear;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            
+
+                .productCard__about__text,.productCard__about_itemName {
+                    transition: 0.45s;
+                    transition-timing-function: ease-out;
+
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+                .productCard__about_itemName {
+                    display: inline;
+                }
+            }
+        }
+    }
+    .productCard__about__text {
+        display: flex;
+        align-items: center;
+        padding: 0px 15px;
+        background-color: #ae895d;
+        
+        font-size: 13px;
+        > svg {
+            margin-right: 8px;
+        }
+    }
+    .productCard__about h3 {
+        color:#f1f1f1;
+        font-size:13px;
+        font-family: Noto Sans SC,sans-serif;
+    }
+    .productCard__about a i {
+        color:white;
+        font-size: 3em;
+        transition: all 0.2s ease-in-out;
+    }
+    .productCard__about_itemName {
+        display: none;
+        margin-bottom: 15px;
     }
 }
