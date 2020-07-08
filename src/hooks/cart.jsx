@@ -25,52 +25,77 @@ const CartProvider = ({ children }) => {
       );
 
       if (storagedProducts) setProducts([...JSON.parse(storagedProducts)]);
-      else {
-        const newProduct = [fakeApi[0]];
-
-        setProducts(newProduct);
-      }
     }
 
     loadProducts();
   }, []);
 
   const addToCart = useCallback(
-    async (product) => {
-      const productExists = products.find((p) => p.id === product.id);
+    async (product, selectedSize) => {
+      const productExists = products.find(
+        (p) => p.id === product.id && p.selectedSize.sku === selectedSize.sku
+      );
 
       if (productExists) {
-        setProducts(
-          products.map((p) =>
-            p.id === product.id ? { ...product, quantity: p.quantity + 1 } : p
-          )
+        const newProducts = products.map((p) =>
+          p.id === product.id && p.selectedSize.sku === selectedSize.sku
+            ? {
+                ...product,
+                quantity: p.quantity + 1,
+                selectedSize: selectedSize,
+              }
+            : p
+        );
+
+        setProducts(newProducts);
+
+        await localStorage.setItem(
+          '@Codenation:products',
+          JSON.stringify(newProducts)
         );
       } else {
-        setProducts([...products, { ...product, quantity: 1 }]);
-      }
+        const newProducts = [
+          ...products,
+          { ...product, quantity: 1, selectedSize: selectedSize },
+        ];
 
-      await localStorage.setItem(
-        '@Codenation:products',
-        JSON.stringify(products)
-      );
+        setProducts(newProducts);
+
+        await localStorage.setItem(
+          '@Codenation:products',
+          JSON.stringify(newProducts)
+        );
+      }
     },
     [products]
   );
 
   const removeFromCart = useCallback(
-    async (id) => {
-      const productExists = products.find((p) => p.id === id);
+    async (id, selectedSize) => {
+      const productExists = products.find(
+        (p) => p.id === id && p.selectedSize.sku === selectedSize
+      );
 
-      if (productExists)
-        setProducts({ products: products.filter((p) => p.id !== id) });
+      if (productExists) {
+        const newProducts = products.filter(
+          (p) => p.id !== id || p.selectedSize.sku !== selectedSize
+        );
+
+        setProducts(newProducts);
+
+        await localStorage.setItem(
+          '@Codenation:products',
+          JSON.stringify(newProducts)
+        );
+      }
     },
     [products]
   );
 
   const increment = useCallback(
-    async (id) => {
+    async (id, selectedSize) => {
       const newProducts = products.map((product) =>
-        product.id === id
+        product.id === id && product.selectedSize.sku === selectedSize
           ? { ...product, quantity: product.quantity + 1 }
           : { ...product }
       );
@@ -86,13 +111,15 @@ const CartProvider = ({ children }) => {
   );
 
   const decrement = useCallback(
-    async (id) => {
-      const productExists = products.find((p) => p.id === id);
+    async (id, selectedSize) => {
+      const productExists = products.find(
+        (p) => p.id === id && p.selectedSize.sku === selectedSize
+      );
 
-      if (productExists.quantity - 1 === 0) removeFromCart(id);
+      if (productExists.quantity - 1 === 0) removeFromCart(id, selectedSize);
       else {
         const newProducts = products.map((product) =>
-          product.id === id
+          product.id === id && product.selectedSize.sku === selectedSize
             ? { ...product, quantity: product.quantity - 1 }
             : product
         );

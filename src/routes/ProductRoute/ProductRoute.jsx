@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./SingleProduct.scss";
-import "./ProductRoute.scss";
-import Magnifier from "react-magnifier";
-import ProductContent from "../../components/ProductContent";
+import React, { useState, useEffect } from 'react';
+import './SingleProduct.scss';
+import './ProductRoute.scss';
+import Magnifier from 'react-magnifier';
+import ProductContent from '../../components/ProductContent';
 
-import { useCart } from "../../hooks/cart";
+import { useCart } from '../../hooks/cart';
 
 const ProductRoute = (props) => {
   const { addToCart } = useCart();
   const { match } = props;
   const { id } = match.params;
   const [productSearch, setProductSearch] = useState(null);
-  const API_URL = "https://undefined.netlify.app/api/catalog";
+  const API_URL = 'https://undefined.netlify.app/api/catalog';
 
   useEffect(() => {
     // function fetchData() {
@@ -38,26 +38,23 @@ const ProductRoute = (props) => {
           result.map((product) => {
             const normalizeName = product.name
               .toLowerCase()
-              .replace(/\s/g, "-");
+              .replace(/\s/g, '-');
             const idNormalized = `${normalizeName}-${product.code_color}`;
             const productWithID = { ...product, id: idNormalized };
             withIdProducts.push(productWithID);
           });
           let testeFilter = withIdProducts.find((product) => product.id === id);
-          console.log("=====Teste filter=======");
+          console.log('=====Teste filter=======');
           console.log(testeFilter);
           setProductSearch(withIdProducts.find((product) => product.id === id));
-          console.log("=====Teste=======");
+          console.log('=====Teste=======');
           console.log(withIdProducts);
         },
         (error) => {}
       );
-  }, []);
+  }, [id]);
 
-  console.log("=====Teste 222=======");
-  console.log(productSearch);
-
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState('');
 
   function handleClick(e, sku) {
     setSelectedSize(sku);

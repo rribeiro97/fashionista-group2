@@ -125,6 +125,13 @@
   transform: translate3d(0, 0, 0);
   width: 100%;
 }
+
+.product__add-to-cart:disabled {
+  background-color: #dfdfdf;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 @media screen and (min-width: 1279px) {
   .product__image {
     width: 50%;
