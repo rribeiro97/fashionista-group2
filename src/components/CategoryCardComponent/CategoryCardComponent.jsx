@@ -6,7 +6,7 @@ import { ProductsContext } from "../../routes/HomeRoute/HomeRoute";
     const { cardSize, categoryHandler, selectedHandler, selectedsArray } = props;
     const size = cardSize  === 'sm' ? 'small-card': 'large-card';
     const categoryItems = useContext(ProductsContext);
-    console.log('cat',categoryItems);
+
     return(
     <React.Fragment>            
                 {categoryItems.map((item) => {

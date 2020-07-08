@@ -14,22 +14,6 @@ const ProductRoute = (props) => {
   const API_URL = 'https://undefined.netlify.app/api/catalog';
 
   useEffect(() => {
-    // function fetchData() {
-    //   const response = fetch(API_URL);
-    //   const result = response.json();
-
-    //   const withIdProducts = [];
-    //   result.map((product) => {
-    //     const normalizeName = product.name.toLowerCase().replace(/\s/g, "-");
-    //     const idNormalized = `${normalizeName}-${product.code_color}`;
-    //     const productWithID = { ...product, id: idNormalized };
-    //     withIdProducts.push(productWithID);
-    //   });
-    //   setProductSearch(withIdProducts.find((product) => product.id === id));
-    //   console.log("=====Teste=======");
-    //   console.log(withIdProducts);
-    // }
-    // fetchData();
     fetch(API_URL)
       .then((res) => res.json())
       .then(
@@ -44,11 +28,7 @@ const ProductRoute = (props) => {
             withIdProducts.push(productWithID);
           });
           let testeFilter = withIdProducts.find((product) => product.id === id);
-          console.log('=====Teste filter=======');
-          console.log(testeFilter);
           setProductSearch(withIdProducts.find((product) => product.id === id));
-          console.log('=====Teste=======');
-          console.log(withIdProducts);
         },
         (error) => {}
       );

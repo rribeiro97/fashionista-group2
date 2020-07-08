@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { FiArrowLeft } from 'react-icons/fi';
 import './Search.scss';
 import ProductResults from '../ProductResults';
 
@@ -43,7 +43,7 @@ const Search = ({ show }) => {
             <div className="app__container">
               <div className="header__context">
                 <div className="header__icons">
-                  <AiOutlineArrowLeft
+                <FiArrowLeft 
                   size={25}
                   onClick={() => openSearch()}
                   />

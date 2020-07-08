@@ -25,7 +25,6 @@ const HomeRoute = () => {
       state.filteredProducts.length !== 0
         ? state.filteredProducts
         : state.fetchedProductsID;
-    console.log('selected', selectedData);
     dispatch(updateValue({ key: KEYS.products, value: selectedData }));
   }, [state.fetchedProductsID,state.filteredProducts,]);
 
@@ -69,7 +68,6 @@ const HomeRoute = () => {
         })
       );
     }
-    console.log('selectedCat', state.selectedCategories);
   };
 
   const getCategories = () => {
@@ -114,8 +112,7 @@ const HomeRoute = () => {
       })
     );
   };
-  
-  console.log('state', state);
+
   return (
     <div className="home">
       <div className="container">

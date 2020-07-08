@@ -11,7 +11,6 @@ const ProductContent = (props) => {
   const handleSizeSelect = useCallback(
     (size) => {
       setSelectedSize(size);
-      console.log(size);
     },
     [setSelectedSize]
   );
