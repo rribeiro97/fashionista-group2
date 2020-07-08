@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
 import Magnifier from "react-magnifier";
@@ -13,56 +13,30 @@ const ProductRoute = (props) => {
   const { addToCart } = useCart();
   const { match } = props;
   const { id } = match.params;
-  console.log('===teste===');
-  console.log(state.products);
+  const [productSearch, setProductSearch] = useState({});
+  const API_URL = 'https://undefined.netlify.app/api/catalog';
+  
+  useEffect(() => {
+    function fetchData() {
+      const response = fetch(API_URL);
+      const result = response.json();
+      
+      const withIdProducts = [];
+      result.map( (product) => {
+        const normalizeName = product.name.toLowerCase().replace(/\s/g, "-");
+        const idNormalized = `${normalizeName}-${product.code_color}`;
+        const productWithID = {...product, id:idNormalized};
+        withIdProducts.push(productWithID);
+      })
+      setProductSearch(withIdProducts.find(product => product.id === id));
+    }
+    fetchData();
+  });
+
 
   const [selectedSize, setSelectedSize] = useState('');
 
-  props = {
-    name: 'REGATA ALCINHA FOLK',
-    style: '20002570',
-    code_color: '20002570_614',
-    color_slug: 'preto',
-    color: 'PRETO',
-    on_sale: false,
-    regular_price: 'R$ 99,90',
-    actual_price: 'R$ 99,90',
-    discount_percentage: '',
-    installments: '3x R$ 33,30',
-    image:
-      'https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_002_catalog_1.jpg?1459948578',
-    sizes: [
-      {
-        available: true,
-        size: 'PP',
-        sku: '5723_40130843_0_PP',
-      },
-      {
-        available: true,
-        size: 'P',
-        sku: '5723_40130843_0_P',
-      },
-      {
-        available: true,
-        size: 'M',
-        sku: '5723_40130843_0_M',
-      },
-      {
-        available: true,
-        size: 'G',
-        sku: '5723_40130843_0_G',
-      },
-      {
-        available: true,
-        size: 'GG',
-        sku: '5723_40130843_0_GG',
-      },
-    ],
-    id: 'regata-alcinha-folk-20002570_614',
-  };
-
   function handleClick(e, sku) {
-    console.log('chico clicou');
     setSelectedSize(sku);
   }
 
@@ -76,12 +50,12 @@ const ProductRoute = (props) => {
             mgWidth={180}
             mgHeight={180}
             mgShape="square"
-            src={props.image}
-            alt={`Produto ${props.image.name}`}
+            src={productSearch.image}
+            alt={`Produto ${productSearch.image.name}`}
           />
         </figure>
         <ProductContent
-          product={props}
+          product={productSearch}
           selectedSize={selectedSize}
           handleClick={handleClick}
         />
