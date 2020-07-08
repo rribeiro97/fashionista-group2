@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactImageZoom from 'react-image-zoom';
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
 import Magnifier from "react-magnifier";

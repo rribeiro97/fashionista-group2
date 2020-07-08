@@ -17,20 +17,38 @@ const HomeRoute = () => {
     api.get('/catalog').then((response) => {
       dispatch(updateValue({ key: KEYS.fetchedProducts, value: response.data }));
     });
+    
   }, []);
-  //  Vamos ter que gerar um uuid... 
-  const getProductByName = (name) => state.products.find(product => name === product.className);
 
   useEffect(() => {
-    
     let selectedData =
       state.filteredProducts.length !== 0
         ? state.filteredProducts
-        : state.fetchedProducts;
+        : state.fetchedProductsID;
     console.log('selected', selectedData);
     dispatch(updateValue({ key: KEYS.products, value: selectedData }));
-  }, [state.fetchedProducts, state.filteredProducts]);
+  }, [state.fetchedProductsID,state.filteredProducts,]);
 
+  useEffect( () => {
+    idGenerator();
+  },[state.fetchedProducts]);
+
+    //  Vamos ter que gerar um uuid... 
+    const getProductByName = (name) => state.products.find(product => name === product.className);
+
+
+    const idGenerator = () => {
+      debugger;
+      const withIdProducts = [];
+      const initial = state.fetchedProducts.map( (product) => {
+        const normalizeName = product.name.toLowerCase().replace(/\s/g, "-")
+        const idNormalized = `${normalizeName}-${product.code_color}`;
+        const productWithID = {...product, id:idNormalized};
+        withIdProducts.push(productWithID);
+      })
+      
+      dispatch(updateValue({key: KEYS.fetchedProductsID, value:withIdProducts}));
+    }
 
   const onClickFilterCategory = (selectedCategory) => {
     let alreadySelected = state.selectedCategories.find(
@@ -56,7 +74,7 @@ const HomeRoute = () => {
 
   const getCategories = () => {
     let availableCategories = [];
-    state.fetchedProducts.map((category) => {
+    state.fetchedProductsID.map((category) => {
       let already = availableCategories.find(
         (cat) => cat === category.color_slug
       );
@@ -68,7 +86,7 @@ const HomeRoute = () => {
   };
 
   const filterProduct = () => {
-    let filtered = state.fetchedProducts.filter((product) =>
+    let filtered = state.fetchedProductsID.filter((product) =>
       state.selectedCategories.includes(product.color_slug)
     );
     dispatch(updateValue({ key: KEYS.filteredProducts, value: filtered }));
@@ -78,7 +96,7 @@ const HomeRoute = () => {
     var results =
       state.filteredProducts.length !== 0
         ? state.filteredProducts.length
-        : state.fetchedProducts.length;
+        : state.fetchedProductsID.length;
     productResults = results;
   };
 
@@ -91,7 +109,7 @@ const HomeRoute = () => {
       })
     );
   };
-
+  
   console.log('state', state);
   return (
     <div className="home">
