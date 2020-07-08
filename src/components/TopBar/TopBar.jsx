@@ -5,28 +5,27 @@ import { useCart } from '../../hooks/cart';
 import { RiSearchLine } from 'react-icons/ri';
 import { FiShoppingBag } from 'react-icons/fi';
 import './TopBar.scss';
-import Search from "../Search";
-import { useState } from "react";
+import Search from '../Search';
+import { useState } from 'react';
 
-// const Topbar = () => {
-//   const [showSearch, setShowSearch] = useState(false);
 
 const Topbar = () => {
-  const { openCart, totalItensInCart } = useCart();
+  const { openCart, openSearch, totalItensInCart } = useCart();
 
   return (
     <header className="topbar">
       <nav className="header">
         <div className="container header__display">
+        <Link to={'/'} >
           <div className="header__img">
             <img
-              src="https://static.dafiti.com.br/images/kanui/logo-kanui.png"
+              src="/assets/img/amarologo.png"
               alt="logo"
             />
           </div>
-
+        </Link>
           <div className="header__icons">
-            <RiSearchLine />
+            <RiSearchLine onClick={() => openSearch()} />
             {totalItensInCart > 0 && (
               <span className="header__count">{totalItensInCart}</span>
             )}

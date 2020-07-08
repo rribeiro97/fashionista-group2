@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 
 import Cart from '../components/Cart/Cart';
+import Search from '../components/Search/Search';
 import { fakeApi } from '../services/fakeApi';
 
 const CartContext = createContext({});
@@ -15,6 +16,7 @@ const CartContext = createContext({});
 const CartProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -70,7 +72,7 @@ const CartProvider = ({ children }) => {
       const newProducts = products.map((product) =>
         product.id === id
           ? { ...product, quantity: product.quantity + 1 }
-          : { ...product, quantity: 1 }
+          : { ...product }
       );
 
       setProducts(newProducts);
@@ -125,6 +127,11 @@ const CartProvider = ({ children }) => {
     else setVisible(true);
   }, [visible]);
 
+  const openSearch = useCallback(() => {
+    if (show) setShow(false);
+    else setShow(true);
+  }, [show]);
+
   return (
     <CartContext.Provider
       value={{
@@ -135,10 +142,12 @@ const CartProvider = ({ children }) => {
         decrement,
         products,
         totalItensInCart,
+        openSearch,
       }}
     >
       {children}
       <Cart show={visible} />
+      <Search show={show} />
     </CartContext.Provider>
   );
 };

@@ -1,82 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
 import Magnifier from "react-magnifier";
 import ProductContent from "../../components/ProductContent";
 
+import { useCart } from "../../hooks/cart";
+
 const ProductRoute = (props) => {
+  const { addToCart } = useCart();
+  const { match } = props;
+  const { id } = match.params;
+  const [productSearch, setProductSearch] = useState(null);
+  const API_URL = "https://undefined.netlify.app/api/catalog";
+
+  useEffect(() => {
+    // function fetchData() {
+    //   const response = fetch(API_URL);
+    //   const result = response.json();
+
+    //   const withIdProducts = [];
+    //   result.map((product) => {
+    //     const normalizeName = product.name.toLowerCase().replace(/\s/g, "-");
+    //     const idNormalized = `${normalizeName}-${product.code_color}`;
+    //     const productWithID = { ...product, id: idNormalized };
+    //     withIdProducts.push(productWithID);
+    //   });
+    //   setProductSearch(withIdProducts.find((product) => product.id === id));
+    //   console.log("=====Teste=======");
+    //   console.log(withIdProducts);
+    // }
+    // fetchData();
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          const withIdProducts = [];
+          result.map((product) => {
+            const normalizeName = product.name
+              .toLowerCase()
+              .replace(/\s/g, "-");
+            const idNormalized = `${normalizeName}-${product.code_color}`;
+            const productWithID = { ...product, id: idNormalized };
+            withIdProducts.push(productWithID);
+          });
+          let testeFilter = withIdProducts.find((product) => product.id === id);
+          console.log("=====Teste filter=======");
+          console.log(testeFilter);
+          setProductSearch(withIdProducts.find((product) => product.id === id));
+          console.log("=====Teste=======");
+          console.log(withIdProducts);
+        },
+        (error) => {}
+      );
+  }, []);
+
+  console.log("=====Teste 222=======");
+  console.log(productSearch);
+
   const [selectedSize, setSelectedSize] = useState("");
 
-  props = {
-    name: "REGATA ALCINHA FOLK",
-    style: "20002570",
-    code_color: "20002570_614",
-    color_slug: "preto",
-    color: "PRETO",
-    on_sale: false,
-    regular_price: "R$ 99,90",
-    actual_price: "R$ 99,90",
-    discount_percentage: "",
-    installments: "3x R$ 33,30",
-    image:
-      "https://d3l7rqep7l31az.cloudfront.net/images/products/20002570_002_catalog_1.jpg?1459948578",
-    sizes: [
-      {
-        available: true,
-        size: "PP",
-        sku: "5723_40130843_0_PP",
-      },
-      {
-        available: true,
-        size: "P",
-        sku: "5723_40130843_0_P",
-      },
-      {
-        available: true,
-        size: "M",
-        sku: "5723_40130843_0_M",
-      },
-      {
-        available: true,
-        size: "G",
-        sku: "5723_40130843_0_G",
-      },
-      {
-        available: true,
-        size: "GG",
-        sku: "5723_40130843_0_GG",
-      },
-    ],
-  };
-
   function handleClick(e, sku) {
-    console.log("chico clicou");
     setSelectedSize(sku);
   }
 
   return (
     <div>
-      <div className="single-product">
-        <figure className="product__image">
-          {/* <img src={props.image} alt="Product" /> */}
-          <Magnifier
-            zoomFactor={1.3}
-            mgWidth={180}
-            mgHeight={180}
-            mgShape="square"
-            src={props.image}
-            alt={`Produto ${props.image.name}`}
+      {productSearch != null && (
+        <div className="single-product">
+          <figure className="product__image">
+            {/* <img src={props.image} alt="Product" /> */}
+            <Magnifier
+              zoomFactor={1.3}
+              mgWidth={180}
+              mgHeight={180}
+              mgShape="square"
+              src={productSearch.image}
+              alt={`Produto ${productSearch.image.name}`}
+            />
+          </figure>
+          <ProductContent
+            product={productSearch}
+            selectedSize={selectedSize}
+            handleClick={handleClick}
           />
-        </figure>
-        <ProductContent
-          product={props}
-          selectedSize={selectedSize}
-          handleClick={handleClick}
-        />
-      </div>
-      <div className="drawer">
-        <div className="drawer__content"></div>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

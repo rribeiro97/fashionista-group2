@@ -38,7 +38,7 @@ const HomeRoute = () => {
 
 
     const idGenerator = () => {
-      debugger;
+      // debugger;
       const withIdProducts = [];
       const initial = state.fetchedProducts.map( (product) => {
         const normalizeName = product.name.toLowerCase().replace(/\s/g, "-")
