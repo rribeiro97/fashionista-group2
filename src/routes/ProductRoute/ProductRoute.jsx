@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useCart } from '../../hooks/cart';
-import ReactImageZoom from 'react-image-zoom';
 import "./SingleProduct.scss";
 import "./ProductRoute.scss";
 import Magnifier from "react-magnifier";
+import ProductContent from "../../components/ProductContent";
+
+import { useCart } from '../../hooks/cart';
 
 const ProductRoute = (props) => {
   const { addToCart } = useCart();
@@ -63,51 +64,20 @@ const ProductRoute = (props) => {
       <div className="single-product">
         <figure className="product__image">
           {/* <img src={props.image} alt="Product" /> */}
-          <Magnifier zoomFactor={1.3} mgWidth={180} mgHeight={180} mgShape="square" src={props.image} alt={`Produto ${props.image.name}`}/>
+          <Magnifier
+            zoomFactor={1.3}
+            mgWidth={180}
+            mgHeight={180}
+            mgShape="square"
+            src={props.image}
+            alt={`Produto ${props.image.name}`}
+          />
         </figure>
-        <div className="product__content">
-          <h3 className="product__name">{props.name}</h3>
-          <div className="product__pricing">
-            <span className="product__price product__price--to">
-              {props.actual_price}
-            </span>
-            <span className="product__price product__price--installments">
-              {props.installments}
-            </span>
-          </div>
-          <div className="product__sizes">
-            <p className="product__sizes__title">Escolha o tamanho</p>
-            <div className="product__btn-group">
-              {props.sizes.length > 0 &&
-                props.sizes
-                  .filter((item) => item.available === true)
-                  .map((size) => (
-                    <button
-                      type="button"
-                      className={`product__filter ${
-                        selectedSize === size.sku
-                          ? 'product__filter--selected'
-                          : ''
-                      }`}
-                      onClick={(event) => {
-                        handleClick(event, size.sku);
-                      }}
-                    >
-                      {size.size}
-                    </button>
-                  ))}
-            </div>
-          </div>
-          <div className="product__actions">
-            <button
-              type="button"
-              className="product__add-to-cart"
-              onClick={() => addToCart(props)}
-            >
-              Adicionar à Sacola
-            </button>
-          </div>
-        </div>
+        <ProductContent
+          product={props}
+          selectedSize={selectedSize}
+          handleClick={handleClick}
+        />
       </div>
       <div className="drawer">
         <div className="drawer__content"></div>
