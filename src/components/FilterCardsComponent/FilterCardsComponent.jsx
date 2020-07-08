@@ -5,7 +5,7 @@ import CategoryCardComponent from '../../components/CategoryCardComponent/Catego
 
  const FilterCardsComponent = (props) => {
     
-    const {categoryHandler, selecteds, searchHandler } = props;
+    const {categoryHandler, selecteds, searchHandler, clearHandler } = props;
     let [isSelected,setIsSelected] = useState(false);
     const changeToSelected = () => {
         setIsSelected(!isSelected);
@@ -13,11 +13,12 @@ import CategoryCardComponent from '../../components/CategoryCardComponent/Catego
     return(
     <React.Fragment>            
         <div className="category-modal filters-modal">
-            <h3>Filtre por categoria</h3>
+            <h3>Filtre por cor</h3>
             <div className="category-cards">
                 <CategoryCardComponent selectedsArray={selecteds} cardSize={'sm'} selectedHandler={changeToSelected} categoryHandler={categoryHandler}/>
             </div>
-            <button onClick={searchHandler}> Pesquisar </button>
+            <button className="category__search--button" onClick={searchHandler}> Pesquisar </button>
+            <button className="category__clear--button" onClick={clearHandler}> Limpar </button>
         </div>
     </React.Fragment>
     );

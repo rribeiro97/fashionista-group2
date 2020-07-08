@@ -8,6 +8,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         
         .productCard__discount {
             position: absolute;
@@ -46,6 +47,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
+            padding: 5px 0 12px;
         }
         .productCard__regularPrice {
             margin-right: 1rem;
@@ -63,5 +65,50 @@
 @media screen and (min-width: 992px) {
     .productCard {
         width: 25%;
+    }
+
+    .productCard__about {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index:1;
+        visibility: hidden;
+        transition: all 0.2s ease-in-out;
+        background-color: rgba(0, 0, 0, 0.5);
+        text-align: center;
+    }
+    .productCard__image:hover .productCard__about {
+        visibility: visible;
+        opacity: 1;
+        transition: 0.4s all ease-in;
+    }
+    .productCard__about__text {
+        display: flex;
+        align-items: center;
+        padding: 0px 15px;
+        background: #c4a035;
+        border: 1px solid #000000;    
+        border-radius: 5px;
+        font-size: 13px;
+        > svg {
+            margin-right: 8px;
+        }
+    }
+    .productCard__about h3 {
+        color:#f1f1f1;
+        font-size:16px;
+        font-family: Noto Sans SC,sans-serif;
+    }
+    .productCard__about a i {
+        color:white;
+        font-size: 3em;
+        transition: all 0.2s ease-in-out;
     }
 }
