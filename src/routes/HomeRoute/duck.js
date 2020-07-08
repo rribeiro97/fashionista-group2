@@ -4,6 +4,7 @@ const UPDATE_VALUE = "SIGNUP/UPDATE_VALUE";
 export const KEYS = {
   products: "products",
   fetchedProducts: "fetchedProducts",
+  fetchedProductsID: "fetchedProductsID",
   filteredProducts: "filteredProducts",
   showCategoryFilter: "showCategoryFilter",
   categories: "categories",
@@ -13,6 +14,7 @@ export const KEYS = {
 export const INITIAL_STATE = {
   [KEYS.products]: [],
   [KEYS.fetchedProducts]: [],
+  [KEYS.fetchedProductsID]: [],
   [KEYS.filteredProducts]: [],
   [KEYS.showCategoryFilter]: false,
   [KEYS.categories]: [],
