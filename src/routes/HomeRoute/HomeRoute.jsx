@@ -28,11 +28,7 @@ const HomeRoute = () => {
   }, [state.fetchedProductsID,state.filteredProducts,]);
 
   useEffect( () => {
-    idGenerator();
-  },[state.fetchedProducts]);
-
-    const idGenerator = () => {
-      const withIdProducts = [];
+    const withIdProducts = [];
       const initial = state.fetchedProducts.map( (product) => {
         const normalizeName = product.name.toLowerCase().replace(/\s/g, "-")
         const idNormalized = `${normalizeName}-${product.code_color}`;
@@ -40,9 +36,10 @@ const HomeRoute = () => {
         withIdProducts.push(productWithID);
       })
       
-      dispatch(updateValue({key: KEYS.fetchedProductsID, value:withIdProducts}));
-    }
+    dispatch(updateValue({key: KEYS.fetchedProductsID, value:withIdProducts}));
+  },[state.fetchedProducts]);
 
+  
   const onClickFilterCategory = (selectedCategory) => {
     let alreadySelected = state.selectedCategories.find(
       (item) => item === selectedCategory
